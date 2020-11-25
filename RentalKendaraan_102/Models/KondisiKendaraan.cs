@@ -6,8 +6,16 @@ namespace RentalKendaraan_102.Models
 {
     public partial class KondisiKendaraan
     {
+        public KondisiKendaraan()
+        {
+            Pengembalian = new HashSet<Pengembalian>();
+        }
+
         public int IdKondisi { get; set; }
-        [Required(ErrorMessage = "Nama Kondisi tidak boleh kosong")]
+
+        [Required(ErrorMessage = "Nama kondisi wajib diisi!!")]
         public string NamaKondisi { get; set; }
+
+        public ICollection<Pengembalian> Pengembalian { get; set; }
     }
 }

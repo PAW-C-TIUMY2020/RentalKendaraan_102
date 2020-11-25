@@ -1,5 +1,4 @@
-﻿using RentalKendaraan_102.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +12,8 @@ namespace RentalKendaraan_102.Models
         }
 
         public int IdGender { get; set; }
-        [Required(ErrorMessage = "Nama Gender tidak boleh kosong")]
+
+        [Required(ErrorMessage = "Nama Gender tidak boleh kosong!!")]
         public string NamaGender { get; set; }
 
         public ICollection<Customer> Customer { get; set; }
