@@ -31,9 +31,7 @@ namespace RentalKendaraan_102.Models
             {
                 entity.HasKey(e => e.IdCustomer);
 
-                entity.Property(e => e.IdCustomer)
-                    .HasColumnName("ID_Customer")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.IdCustomer).HasColumnName("ID_Customer");
 
                 entity.Property(e => e.Alamat)
                     .HasMaxLength(150)
@@ -55,6 +53,11 @@ namespace RentalKendaraan_102.Models
                     .HasColumnName("No_HP")
                     .HasMaxLength(13)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdGenderNavigation)
+                    .WithMany(p => p.Customer)
+                    .HasForeignKey(d => d.IdGender)
+                    .HasConstraintName("FK_Customer_Gender");
             });
 
             modelBuilder.Entity<Gender>(entity =>
@@ -121,6 +124,11 @@ namespace RentalKendaraan_102.Models
                     .HasColumnName("No_STNK")
                     .HasMaxLength(8)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.IdJenisKendaraanNavigation)
+                    .WithMany(p => p.Kendaraan)
+                    .HasForeignKey(d => d.IdJenisKendaraan)
+                    .HasConstraintName("FK_Kendaraan_Jenis_Kendaraan");
             });
 
             modelBuilder.Entity<KondisiKendaraan>(entity =>
@@ -150,8 +158,23 @@ namespace RentalKendaraan_102.Models
                 entity.Property(e => e.IdKendaraan).HasColumnName("ID_Kendaraan");
 
                 entity.Property(e => e.TglPeminjaman)
-                    .HasColumnName("tgl_Peminjaman")
+                    .HasColumnName("Tgl_Peminjaman")
                     .HasColumnType("datetime");
+
+                entity.HasOne(d => d.IdCustomerNavigation)
+                    .WithMany(p => p.Peminjaman)
+                    .HasForeignKey(d => d.IdCustomer)
+                    .HasConstraintName("FK_Peminjaman_Customer");
+
+                entity.HasOne(d => d.IdJaminanNavigation)
+                    .WithMany(p => p.Peminjaman)
+                    .HasForeignKey(d => d.IdJaminan)
+                    .HasConstraintName("FK_Peminjaman_Jaminan");
+
+                entity.HasOne(d => d.IdKendaraanNavigation)
+                    .WithMany(p => p.Peminjaman)
+                    .HasForeignKey(d => d.IdKendaraan)
+                    .HasConstraintName("FK_Peminjaman_Kendaraan");
             });
 
             modelBuilder.Entity<Pengembalian>(entity =>
@@ -165,8 +188,18 @@ namespace RentalKendaraan_102.Models
                 entity.Property(e => e.IdPeminjaman).HasColumnName("ID_Peminjaman");
 
                 entity.Property(e => e.TglPengembalian)
-                    .HasColumnName("tgl_Pengembalian")
+                    .HasColumnName("Tgl_Pengembalian")
                     .HasColumnType("datetime");
+
+                entity.HasOne(d => d.IdKondisiNavigation)
+                    .WithMany(p => p.Pengembalian)
+                    .HasForeignKey(d => d.IdKondisi)
+                    .HasConstraintName("FK_Pengembalian_Kondisi_Kendaraan");
+
+                entity.HasOne(d => d.IdPeminjamanNavigation)
+                    .WithMany(p => p.Pengembalian)
+                    .HasForeignKey(d => d.IdPeminjaman)
+                    .HasConstraintName("FK_Pengembalian_Peminjaman");
             });
         }
     }

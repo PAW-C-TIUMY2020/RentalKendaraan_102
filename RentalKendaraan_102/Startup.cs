@@ -31,8 +31,8 @@ namespace RentalKendaraan_102
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddDbContext<Models.rental_kendaraanContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddDbContext<Models.rental_kendaraanContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
